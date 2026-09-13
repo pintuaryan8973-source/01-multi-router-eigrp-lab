@@ -2,33 +2,33 @@
 
 ## Project Overview
 
-This project demonstrates the design and configuration of a multi-router network using Cisco Packet Tracer.
+This project demonstrates the design, configuration and testing of a multi-router network using Cisco Packet Tracer.
 
-EIGRP dynamic routing was implemented to enable communication between multiple networks.
+EIGRP dynamic routing was implemented with Autonomous System 100 to allow multiple routers and networks to exchange routing information automatically.
 
-The lab focuses on practical routing configuration, EIGRP neighbor formation, dynamic route learning, connectivity testing and troubleshooting.
+The project focuses on practical routing configuration, EIGRP neighbor formation, route learning, connectivity verification and basic network troubleshooting.
 
 ---
 
 ## Objective
 
-The objective of this project is to:
+The objective of this project was to:
 
-- Design a multi-router network topology
+- Design a multi-router network
 - Configure IPv4 addressing
 - Configure EIGRP dynamic routing
 - Establish EIGRP neighbor relationships
 - Verify dynamically learned routes
-- Test end-to-end network connectivity
+- Test remote network connectivity
 - Analyze packet paths using Traceroute
-- Practice basic network troubleshooting
+- Practice Cisco IOS verification and troubleshooting commands
 
 ---
 
 ## Technologies / Tools Used
 
 - Cisco Packet Tracer
-- Cisco Routers
+- Cisco 2911 Routers
 - Cisco IOS CLI
 - IPv4 Addressing
 - EIGRP
@@ -41,9 +41,15 @@ The objective of this project is to:
 
 ## Lab Environment
 
-This project was performed in a controlled Cisco Packet Tracer lab environment for educational purposes.
+This project was created and tested inside a controlled Cisco Packet Tracer environment for educational purposes.
 
-The network contains multiple routers connected through different IPv4 networks.
+The network contains multiple interconnected Cisco routers using different IPv4 networks.
+
+### Routing Protocol
+
+```text
+EIGRP
+```
 
 ### EIGRP Autonomous System
 
@@ -55,163 +61,140 @@ The network contains multiple routers connected through different IPv4 networks.
 
 ## What I Did
 
-In this project I:
+During this project, I:
 
-- Designed a multi-router network topology
-- Configured router interfaces
-- Assigned IPv4 addresses
-- Enabled router interfaces
+- Built a multi-router topology in Cisco Packet Tracer
+- Connected multiple routers through different IPv4 networks
+- Configured IPv4 addresses on router interfaces
+- Enabled the required router interfaces
 - Configured EIGRP AS 100
 - Advertised connected networks through EIGRP
 - Established EIGRP neighbor relationships
-- Verified dynamically learned EIGRP routes
-- Checked router interface status
-- Tested remote network connectivity using Ping
-- Used Traceroute to analyze packet paths
-- Verified routing using Cisco IOS commands
-
----
-
-## EIGRP Configuration
-
-EIGRP was configured using Autonomous System Number:
-
-```text
-100
-```
-
-EIGRP allows routers to exchange routing information dynamically.
-
-The configuration was verified using Cisco IOS commands.
+- Verified EIGRP-learned routes
+- Checked interface and protocol status
+- Tested remote connectivity using Ping
+- Used Traceroute to verify the packet path
+- Used Cisco IOS commands for verification and troubleshooting
 
 ---
 
 ## EIGRP Neighbor Verification
 
-Command used:
+The following command was used:
 
 ```text
 show ip eigrp neighbors
 ```
 
-The router successfully formed EIGRP neighbor relationships.
+The command confirmed that EIGRP neighbor relationships were successfully established.
 
-Observed neighbor addresses included:
+Example neighbors visible during verification included:
 
 ```text
-70.0.0.2
-40.0.0.1
+10.0.0.1
+40.0.0.2
 ```
 
-This confirmed that EIGRP adjacency between the routers was successfully established.
+A queue count of `0` was observed in the neighbor table, showing that the EIGRP adjacency was operating normally during the test.
 
-The neighbor table also showed stable EIGRP communication.
+### Evidence
+
+![EIGRP Neighbors](02-eigrp-neighbors.png.png)
 
 ---
 
 ## Routing Table Verification
 
-Command used:
+The routing table was checked using:
 
 ```text
 show ip route
 ```
 
-The routing table displayed both directly connected networks and dynamically learned routes.
+The routing table contained directly connected networks as well as routes learned dynamically through EIGRP.
 
-EIGRP-learned routes are identified by the letter:
+EIGRP-learned routes are identified by:
 
 ```text
 D
 ```
 
-The appearance of `D` routes confirmed that the routers were successfully exchanging routing information through EIGRP.
-
----
-
-## EIGRP Configuration Verification
-
-Command used:
+Examples of dynamically learned networks observed in the routing table included:
 
 ```text
-show running-config | section router eigrp
+11.0.0.0/8
+12.0.0.0/8
+20.0.0.0/8
+30.0.0.0/8
+50.0.0.0/8
+60.0.0.0/8
 ```
 
-This command was used to verify the EIGRP configuration running on the router.
+This confirmed that routing information was being exchanged successfully between the routers.
 
-It helped confirm:
+### Evidence
 
-- EIGRP process number
-- Advertised networks
-- Routing configuration
-
----
-
-## Interface Verification
-
-Command used:
-
-```text
-show ip interface brief
-```
-
-This command was used to verify:
-
-- Interface names
-- IPv4 addresses
-- Interface status
-- Protocol status
-
-This helped confirm that the required router interfaces were active and correctly configured.
+![Routing Table](03-routing-table.png.png)
 
 ---
 
 ## Connectivity Test
 
-Remote network connectivity was tested using Ping.
-
-Command used:
+Remote network connectivity was tested using:
 
 ```text
 ping 100.0.0.1
 ```
 
-The Ping test completed successfully.
+The Ping test returned:
 
-This confirmed that packets were able to travel between different networks through the configured routers.
+```text
+!!!!!
+Success rate is 100 percent (5/5)
+```
+
+This confirmed successful end-to-end connectivity to the remote destination.
+
+### Evidence
+
+![Ping Test](04-ping-test.png.png)
 
 ---
 
 ## Traceroute Test
 
-Command used:
+The packet path was verified using:
 
 ```text
 traceroute 100.0.0.1
 ```
 
-Observed route:
+The observed path included:
 
 ```text
 1   40.0.0.2
 2   70.0.0.2
 ```
 
-The Traceroute test successfully displayed the path taken by packets toward the remote destination.
+This showed the routers through which the packet travelled before reaching the remote destination.
 
-This helped verify the routing path selected by the network.
+The same verification screenshot also contains EIGRP neighbor information.
+
+### Evidence
+
+![Traceroute and EIGRP Verification](05-traceroute-eigrp-neighbors.png.png)
 
 ---
 
 ## Verification Commands
 
-The following commands were used during the project:
+The following Cisco IOS commands were used during this lab:
 
 ```text
 show ip eigrp neighbors
 show ip route
-show running-config | section router eigrp
 show ip interface brief
+show running-config | section router eigrp
 ping 100.0.0.1
 traceroute 100.0.0.1
 ```
@@ -222,81 +205,62 @@ traceroute 100.0.0.1
 
 The Multi-Router EIGRP Routing Lab was successfully configured and tested.
 
-### Final Results
+### Verified Results
 
-- Router interfaces were successfully configured
-- EIGRP AS 100 was successfully configured
-- EIGRP neighbor relationships were established
-- Dynamic routes appeared in the routing table
-- Routers successfully exchanged routing information
-- Remote network Ping testing was successful
-- Traceroute successfully displayed the packet path
-- End-to-end network connectivity was verified
-
----
-
-## Screenshots
-
-The repository contains practical evidence from the lab.
-
-Screenshots include:
-
-1. Network Topology
-2. EIGRP Neighbor Table
-3. Routing Table
-4. EIGRP Configuration
-5. Interface Status
-6. Ping Test
-7. Traceroute Test
-
-Screenshots are stored inside the:
-
-```text
-screenshots/
-```
-
-folder.
+- EIGRP AS 100 was configured
+- EIGRP neighbors were successfully established
+- Routers exchanged routing information dynamically
+- EIGRP routes appeared in the routing table
+- Remote connectivity was successful
+- Ping achieved a 100% success rate
+- Traceroute displayed the packet path
+- Multi-router communication was successfully verified
 
 ---
 
-## Screenshot Structure
+## Project Evidence
 
-```text
-screenshots/
-│
-├── 01-topology.png
-├── 02-eigrp-neighbors.png
-├── 03-routing-table.png
-├── 04-eigrp-config.png
-├── 05-interface-status.png
-├── 06-ping-test.png
-└── 07-traceroute.png
-```
+The repository currently contains the following practical evidence:
+
+### 1. EIGRP Neighbor Verification
+
+![EIGRP Neighbors](02-eigrp-neighbors.png.png)
+
+### 2. Routing Table
+
+![Routing Table](03-routing-table.png.png)
+
+### 3. Successful Ping Test
+
+![Ping Test](04-ping-test.png.png)
+
+### 4. Traceroute and EIGRP Verification
+
+![Traceroute and EIGRP Verification](05-traceroute-eigrp-neighbors.png.png)
 
 ---
 
 ## Learning Outcomes
 
-Through this project I learned:
+Through this project, I learned:
 
-- How dynamic routing works
-- How EIGRP works in a multi-router environment
+- How EIGRP dynamic routing works
 - How routers discover EIGRP neighbors
-- How EIGRP exchanges routing information
-- How to verify EIGRP neighbors
-- How to understand a routing table
-- How to identify EIGRP routes
-- How to verify router interface status
-- How to test network connectivity using Ping
-- How to analyze routing paths using Traceroute
-- How to perform basic network troubleshooting
-- How to document a networking project on GitHub
+- How routers exchange routing information
+- How to identify EIGRP routes in a routing table
+- How to verify EIGRP adjacency
+- How to test remote network connectivity
+- How to use Ping for connectivity testing
+- How to use Traceroute for path analysis
+- How to read basic Cisco routing information
+- How to perform basic routing troubleshooting
+- How to document practical networking work on GitHub
 
 ---
 
-## Troubleshooting
+## Troubleshooting Commands
 
-During network testing, the following commands can help identify problems:
+The following commands are useful when troubleshooting this lab:
 
 ```text
 show ip interface brief
@@ -306,45 +270,57 @@ ping <destination-ip>
 traceroute <destination-ip>
 ```
 
-These commands help verify interfaces, routing tables, EIGRP adjacency and network connectivity.
+These commands help verify:
+
+- Interface status
+- IPv4 configuration
+- EIGRP adjacency
+- Learned routes
+- Network reachability
+- Packet path
 
 ---
 
 ## Future Improvements
 
-This project can be improved in the future by practically implementing:
+The lab can be expanded in the future after practical implementation and testing.
 
-- VLANs
+Possible improvements include:
+
+- VLAN configuration
 - Inter-VLAN Routing
 - DHCP
 - DNS
-- Access Control Lists (ACL)
+- Access Control Lists
 - Network segmentation
 - Additional routing scenarios
-- Advanced troubleshooting
-- Network redundancy
+- Redundant routing paths
+- More advanced troubleshooting scenarios
 
-These features will only be added after practical implementation and testing.
+Only features that are practically implemented and tested will be added to this repository.
 
 ---
 
 ## Security & Ethics
 
-All networking and security experiments shown in this repository were performed in a controlled lab environment for educational purposes.
+All networking and security experiments shown in this project were performed in a controlled Cisco Packet Tracer lab environment for educational purposes.
 
-No unauthorized network, system, server, website, wireless network or device was tested.
+No unauthorized network, server, website, wireless network, system or device was tested.
 
 ---
 
 ## Project Status
 
 ```text
-Status: Completed
+Project: Multi-Router EIGRP Routing Lab
 Environment: Cisco Packet Tracer
 Routing Protocol: EIGRP
-EIGRP AS: 100
-Connectivity Test: Successful
+Autonomous System: 100
+Neighbor Verification: Successful
+Dynamic Route Learning: Successful
+Ping Test: 100% Successful
 Traceroute Test: Successful
+Status: Completed
 ```
 
 ---
@@ -357,14 +333,10 @@ Aspiring Cyber Security Analyst
 
 Networking | Python | Security Operations
 
-### GitHub
+### GitHub Profile
 
 https://github.com/pintuaryan8973-source
 
----
-
-## Repository
-
-Project Repository:
+### Project Repository
 
 https://github.com/pintuaryan8973-source/01-multi-router-eigrp-lab
